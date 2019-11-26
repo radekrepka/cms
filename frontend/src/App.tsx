@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+// @ts-ignore
+import ScrollToTop from 'react-router-scroll-top';
+import 'bootstrap/dist/css/bootstrap.css';
+import Menu from './components/Menu';
+import Footer from './components/Footer';
+import './App.css'
+import routes, {RouteItem} from './routes';
+import Loader from './components/Loader';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App: React.FC = () => {
+	return (
+		<Router>
+			<ScrollToTop>
+				<Menu/>
+				<div className="content-wrapper main-wrap">
+					<div id="main" className="container">
+						<React.Suspense fallback={<Loader />}>
+							<Switch>
+								{routes.map((route: RouteItem) => (
+									<Route key={route.path} {...route} />
+								))}
+							</Switch>
+						</React.Suspense>
+					</div>
+				</div>
+				<Footer/>
+			</ScrollToTop>
+		</Router>
+	);
+};
 
 export default App;
