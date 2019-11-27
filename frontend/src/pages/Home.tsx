@@ -67,7 +67,7 @@ const Home: React.FC = () => {
 				</div>
 				<div className="article-list">
 					{articles.edges.map(article =>
-					<div className="row mb-3">
+					<div className="row mb-3" key={article.node.id}>
 						<div className="col-1">
                         	<span className="text-success article-create-date">
                         	        {getReadableDateTime(article.node.created_date)}
