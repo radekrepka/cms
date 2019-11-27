@@ -45,12 +45,35 @@ type PageInfo {
 }
 
 type Query {
-  article(id: Int): Article
+  article(id: Int!): Article
   articles: ArticleConnection
+  section(url: String!): Section
+  sections: SectionConnection
+}
+
+type Section implements Node {
+  articles: ArticleConnection
+  id: Int!
+  name: String
+  url: String
+}
+
+type SectionConnection implements NodeConnection {
+  edges: [SectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type SectionEdge implements NodeEdge {
+  cursor: String!
+  node: Section!
 }
 
 input ArticleInput {
   id: Int!
+}
+
+input SectionInput {
+  url: String!
 }
 
 
