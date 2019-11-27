@@ -2,6 +2,8 @@ import {gql} from 'apollo-server-express';
 import {DocumentNode} from 'graphql';
 
 const typeDefs: DocumentNode = gql`
+  scalar DateTime
+  
   type Query { 
 	articles: ArticleConnection
 	article(id: Int): Article
@@ -38,7 +40,7 @@ const typeDefs: DocumentNode = gql`
     image: String
     body: String
     frontPage: Boolean
-    created_date: String
+    created_date: DateTime
   }
 
   type ArticleEdge implements NodeEdge {

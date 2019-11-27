@@ -1,4 +1,6 @@
-import { ApolloError } from 'apollo-server-express'
+import { ApolloError } from 'apollo-server-express';
+// @ts-ignore
+import GraphQLDateTime from 'graphql-type-datetime';
 import articles from '../exampleData/articles.json';
 
 interface ArticleArguments {
@@ -15,6 +17,7 @@ interface Article {
 }
 
 const resolvers = {
+	DateTime: GraphQLDateTime,
 	Query: {
 		articles: (parent: unknown, args: unknown) => {
 			return articles;
@@ -43,7 +46,7 @@ const resolvers = {
 		},
 	},
 	Article: {
-		created_date: (article: Article) => new Date(article.created_date)
+
 	},
 	ArticleEdge: {
 		node: (edge: Article) => edge,

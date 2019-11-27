@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
-    "lodash": "^4.17.15"
+    "graphql-type-datetime": "^0.2.4",
     "lodash": "^4.17.15",
     "luxon": "^1.21.2"
   }

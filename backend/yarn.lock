@@ -714,6 +714,13 @@ graphql-tools@^4.0.0, graphql-tools@^4.0.6:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
+graphql-type-datetime@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/graphql-type-datetime/-/graphql-type-datetime-0.2.4.tgz#438cd3886ad2c7898af057ee3c4a5666bd153095"
+  integrity sha512-R/4Y7L+7WtBfW3g2WGv4NcU+hSPPES4JsiDzLl8sj30hEDxQyIwvJ2yJi8DGcBE8s325B6Q4ky5qwicZ7F0b7A==
+  dependencies:
+    moment "^2.22.2"
+
 graphql-upload@^8.0.2:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/graphql-upload/-/graphql-upload-8.1.0.tgz#6d0ab662db5677a68bfb1f2c870ab2544c14939a"
