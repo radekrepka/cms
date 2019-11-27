@@ -1,13 +1,13 @@
 import gql from "graphql-tag";
-import {ARTICLE_FRAGMENT, ARTICLE_WITHOUT_BODY_FRAGMENT} from '../fragments/article';
+import {ARTICLE_WITH_BODY_FRAGMENT, ARTICLE_FRAGMENT} from '../fragments/article';
 
 export const GET_ARTICLE = gql`
   query getArticle($id: Int!) {
     article(id: $id) {
-      ...ArticleData
+      ...ArticleWithBodyData
     }
   }
-  ${ARTICLE_FRAGMENT}
+  ${ARTICLE_WITH_BODY_FRAGMENT}
 `;
 
 export const GET_ARTICLES = gql`
@@ -15,10 +15,10 @@ export const GET_ARTICLES = gql`
     articles {
       edges {
         node {
-          ...ArticleWithoutBodyData
+          ...ArticleData
         }
       }
     }
   }
-  ${ARTICLE_WITHOUT_BODY_FRAGMENT}
+  ${ARTICLE_FRAGMENT}
 `;

@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import {ARTICLE_WITHOUT_BODY_FRAGMENT} from './article';
+import {ARTICLE_FRAGMENT} from './article';
 
 export const SECTION_FRAGMENT = gql`
   fragment SectionData on Section {
@@ -15,11 +15,11 @@ export const SECTION_WITH_ARTICLES_FRAGMENT = gql`
     articles {
       edges {
         node {
-          ...ArticleWithoutBodyData
+          ...ArticleData
         }
       }
     }
   }
   ${SECTION_FRAGMENT}
-  ${ARTICLE_WITHOUT_BODY_FRAGMENT}
+  ${ARTICLE_FRAGMENT}
 `;

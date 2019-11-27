@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
-export const ARTICLE_WITHOUT_BODY_FRAGMENT = gql`
-  fragment ArticleWithoutBodyData on Article {
+export const ARTICLE_FRAGMENT = gql`
+  fragment ArticleData on Article {
     id
     title
     image
@@ -10,10 +10,10 @@ export const ARTICLE_WITHOUT_BODY_FRAGMENT = gql`
   }
 `;
 
-export const ARTICLE_FRAGMENT = gql`
-  fragment ArticleData on Article {
-    ...ArticleWithoutBodyData
+export const ARTICLE_WITH_BODY_FRAGMENT = gql`
+  fragment ArticleWithBodyData on Article {
+    ...ArticleData
     body
   }
-  ${ARTICLE_WITHOUT_BODY_FRAGMENT}
+  ${ARTICLE_FRAGMENT}
 `;
