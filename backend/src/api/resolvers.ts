@@ -1,4 +1,3 @@
-import { ApolloError } from 'apollo-server-express';
 // @ts-ignore
 import GraphQLDateTime from 'graphql-type-datetime';
 import articles from '../exampleData/articles.json';
@@ -23,11 +22,11 @@ const resolvers = {
 			return articles;
 		},
 		article: (parent: unknown, args: ArticleArguments) => {
-			if (args.id == null || args.id > articles.length) {
-				throw new ApolloError('Not found', 'NOT_FOUND');
+			if (args.id != null && args.id < articles.length) {
+				return articles[args.id];
 			}
 
-			return {...articles[args.id], id: args.id};
+			return null;
 		}
 	},
 	Node: {
