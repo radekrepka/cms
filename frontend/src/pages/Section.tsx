@@ -1,56 +1,55 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Loader from '../components/Loader';
+import {useQuery} from '@apollo/react-hooks';
+import {GET_SECTION} from '../graphql/queries/sections';
+import {getSection, getSectionVariables} from '../graphql/queries/__generated__/getSection';
+import ArticleList from '../components/ArticleList';
 
-const Section: React.FC = () => {
-	const [isLoading] = useState<boolean>(true);
+export interface SectionProps {
+	match: {
+		params: {
+			sectionUrl: string
+		}
+	}
+}
 
-	if (isLoading) {
+const Section: React.FC<SectionProps> = ({ match }) => {
+	const { loading, error, data } = useQuery<getSection, getSectionVariables>(GET_SECTION, {
+		variables: {
+			url: match.params.sectionUrl
+		},
+	});
+
+	if (loading) {
 		return <Loader />;
+	}
+
+	if (error) {
+		return <div>Error!</div>;
 	}
 
 	let articleList;
 
-	// if (articles != null && articles.length > 0) {
+	if (data != null && data.section != null && data.section.articles != null) {
+		articleList = <ArticleList articles={data.section.articles} />;
+	} else {
 		articleList = (
-			<div className="article-list">
-				{/*{articles.map(article =>*/}
-					<div className="row mb-3">
-						<div className="col-1">
-                                        <span className="text-success">
-                                                {/*{article.dateAdd}*/}
-                                        </span>
-						</div>
-						<div className="col-8">
-							<div className="row">
-								<div className="col-3">
-									{/*<Link to={"/article/" + article._id}>*/}
-									{/*	<img src="" alt={article.title} />*/}
-									{/*</Link>*/}
-								</div>
-								<div className="col-9">
-									{/*<Link to={"/article/" + article._id}>*/}
-									{/*	<h3>*/}
-									{/*		{article.title}*/}
-									{/*	</h3>*/}
-									{/*</Link>*/}
-								</div>
-							</div>
-						</div>
-					</div>
-				{/*)}*/}
+			<div>
+				No articles.
 			</div>
 		);
-	// } else {
-	// 	articleList = (
-	// 		<div>
-	// 			Žádné články.
-	// 		</div>
-	// 	);
-	// }
+	}
 
 	return (
 		<section className="content">
-			{articleList}
+			<div className="row">
+				<div className="col-12">
+					<h1>{data && data.section && data.section.name}</h1>
+				</div>
+				<div className="col-12 mt-2">
+					{articleList}
+				</div>
+			</div>
 		</section>
 	)
 };
