@@ -1,0 +1,54 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+}
+
+interface Node {
+  id: Int!
+}
+
+interface NodeConnection {
+  edges: [NodeEdge!]!
+  pageInfo: PageInfo!
+}
+
+interface NodeEdge {
+  cursor: String!
+  node: Node!
+}
+
+type Article implements Node {
+  body: String
+  created_date: String
+  frontPage: Boolean
+  id: Int!
+  image: String
+  title: String
+}
+
+type ArticleConnection implements NodeConnection {
+  edges: [ArticleEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ArticleEdge implements NodeEdge {
+  cursor: String!
+  node: Article!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  article(id: Int): Article
+  articles: ArticleConnection
+}
+
+input ArticleInput {
+  id: Int!
+}
