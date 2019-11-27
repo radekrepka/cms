@@ -6,7 +6,10 @@ const typeDefs: DocumentNode = gql`
   
   type Query { 
 	articles: ArticleConnection
-	article(id: Int): Article
+	article(id: Int!): Article
+    
+    sections: SectionConnection
+    section(url: String!): Section
   }
 
   interface Node {
@@ -50,6 +53,27 @@ const typeDefs: DocumentNode = gql`
 
   type ArticleConnection implements NodeConnection {
     edges: [ArticleEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  input SectionInput {
+    url: String!
+  }
+
+  type Section implements Node {
+	id: Int!
+    name: String
+	url: String
+	articles: ArticleConnection
+  }
+
+  type SectionEdge implements NodeEdge {
+    node: Section!
+    cursor: String!
+  }
+
+  type SectionConnection implements NodeConnection {
+    edges: [SectionEdge!]!
     pageInfo: PageInfo!
   }
 `;

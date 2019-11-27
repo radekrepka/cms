@@ -1,0 +1,34 @@
+[
+  {
+    "id": 0,
+    "name": "World",
+    "url": "world",
+    "articles": [
+      0
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Sport",
+    "url": "sport",
+    "articles": [
+
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Politics",
+    "url": "politics",
+    "articles": [
+      1
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Business",
+    "url": "business",
+    "articles": [
+
+    ]
+  }
+]
