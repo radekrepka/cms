@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import ReactLoading from 'react-loading';
+import React from 'react';
 
 const NotFound: React.FC = () => {
 	return (
