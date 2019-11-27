@@ -1,37 +1,70 @@
-import React, {useState} from 'react';
-// import {Link} from 'react-router-dom';
-// import ReactLoading from 'react-loading';
-// import './Home.css';
-//
-const Home: React.FC = () => {
-	const [isLoading] = useState<boolean>(true);
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {useQuery} from '@apollo/react-hooks';
+import {GET_ARTICLES} from '../graphql/queries/articles';
+import {getArticles} from '../graphql/queries/__generated__/getArticles';
+import Loader from '../components/Loader';
+import NotFound from './NotFound';
+import './Home.css';
+import {getReadableDateTime} from '../utils';
 
-	if (isLoading) {
-		// return <ReactLoading className='loading' type={'bubbles'} color={'#339966'} height={'10%'} width={'10%'}/>;
+const Home: React.FC = () => {
+	const { loading, error, data } = useQuery<getArticles>(GET_ARTICLES);
+
+	if (loading) {
+		return <Loader />;
 	}
+
+	if (error) {
+		let content = <div>Error!</div>;
+
+		error.graphQLErrors.forEach((graphQLError) => {
+			if (graphQLError.extensions != null && graphQLError.extensions.code === 'NOT_FOUND') {
+				content = <NotFound />
+			}
+		});
+
+		return content;
+	}
+
+	if (data == null || data.articles == null || data.articles.edges.length === 0) {
+		return <NotFound />;
+	}
+
+	const { articles } = data;
+
+	const frontPageArticles = articles.edges.filter((article) => {
+		return article.node.frontPage;
+	});
+
+	const frontPageArticle = frontPageArticles.length > 0 ? frontPageArticles[0] : null;
 
 	return (
 		<div>
 			<section className="content">
-				<div className="row frontPage">
-					<div className="col-1">
-                            <span className="text-success">
-                                    {/*{frontPage.dateAdd}*/}
-                            </span>
-					</div>
-					<div className="col-8">
-						{/*<Link to={"/article/" + frontPage._id}>*/}
-						{/*    <img src="" />*/}
-						{/*</Link>*/}
-						<div className="mt-5">
-							{/*<Link to={"/article/" + frontPage._id}>*/}
-							{/*    <h1>*/}
-							{/*        {frontPage.title}*/}
-							{/*    </h1>*/}
-							{/*</Link>*/}
+				{frontPageArticle != null && (
+					<div className="row frontPage">
+						<div className="col-1">
+								<span className="text-success article-create-date">
+										{getReadableDateTime(frontPageArticle.node.created_date)}
+								</span>
+						</div>
+						<div className="col-8">
+							{frontPageArticle.node.image != null && frontPageArticle.node.title && (
+							<Link to={"/article/" + frontPageArticle.node.id}>
+								<img src={frontPageArticle.node.image} alt={frontPageArticle.node.title} />
+							</Link>
+							)}
+							<div className="mt-5">
+								<Link to={"/article/" + frontPageArticle.node.id}>
+									<h1>
+										{frontPageArticle.node.title}
+									</h1>
+								</Link>
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 				<div className="mt-5">
 					<div className="row">
 						<div className="col-8 offset-1">
@@ -41,31 +74,33 @@ const Home: React.FC = () => {
 					</div>
 				</div>
 				<div className="article-list">
-					{/*TODO {articles.map(article =>*/}
+					{articles.edges.map(article =>
 					<div className="row mb-3">
 						<div className="col-1">
-                                    <span className="text-success">
-                                            {/*{article.dateAdd}*/}
-                                    </span>
+                        	<span className="text-success article-create-date">
+                        	        {getReadableDateTime(article.node.created_date)}
+                        	</span>
 						</div>
 						<div className="col-8">
 							<div className="row">
 								<div className="col-3">
-									{/*<Link to={"/article/" + article._id}>*/}
-									{/*    <img src="" className="img-fluid" />*/}
-									{/*</Link>*/}
+									{article.node.image != null && article.node.title && (
+										<Link to={"/article/" + article.node.id}>
+											<img src={article.node.image} alt={article.node.title} />
+										</Link>
+									)}
 								</div>
 								<div className="col-9">
-									{/*<Link to={"/article/" + article._id}>*/}
-									{/*    <h3>*/}
-									{/*        {article.title}*/}
-									{/*    </h3>*/}
-									{/*</Link>*/}
+									<Link to={"/article/" + article.node.id}>
+									    <h3>
+									        {article.node.title}
+									    </h3>
+									</Link>
 								</div>
 							</div>
 						</div>
 					</div>
-					{/*)}*/}
+					)}
 				</div>
 			</section>
 		</div>

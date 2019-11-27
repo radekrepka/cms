@@ -3,15 +3,14 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: ArticleData
+// GraphQL fragment: ArticleWithoutBodyData
 // ====================================================
 
-export interface ArticleData {
+export interface ArticleWithoutBodyData {
   __typename: "Article";
   id: number;
   title: string | null;
   image: string | null;
   frontPage: boolean | null;
   created_date: any | null;
-  body: string | null;
 }

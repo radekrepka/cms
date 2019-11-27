@@ -11,9 +11,9 @@ export interface getArticle_article {
   id: number;
   title: string | null;
   image: string | null;
-  body: string | null;
   frontPage: boolean | null;
-  created_date: string | null;
+  created_date: any | null;
+  body: string | null;
 }
 
 export interface getArticle {
