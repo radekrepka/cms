@@ -1,5 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {useQuery} from '@apollo/react-hooks';
+import {getSections} from '../graphql/queries/__generated__/getSections';
+import {GET_SECTIONS} from '../graphql/queries/sections';
+import Loader from './Loader';
 import './Menu.css';
 
 const Menu: React.FC = () => {
@@ -8,6 +12,16 @@ const Menu: React.FC = () => {
 	const onToggleNav = useCallback(() => {
 		setNavColapsed(state => !state);
 	}, []);
+
+	const { loading, error, data } = useQuery<getSections>(GET_SECTIONS);
+
+	if (loading) {
+		return <Loader />;
+	}
+
+	if (error) {
+		return <div>Error!</div>;
+	}
 
 	return (
 		<div className="nav navbar-expand-md justify-content-center header-menu">
@@ -26,13 +40,13 @@ const Menu: React.FC = () => {
 							Home
 						</Link>
 					</li>
-					{/*{sections.map(section =>*/}
-					{/*	<li className="nav-item">*/}
-					{/*		<Link to={"/section/" + section.url} className="nav-link">*/}
-					{/*			{section.name}*/}
-					{/*		</Link>*/}
-					{/*	</li>*/}
-					{/*)}*/}
+					{data != null && data.sections != null && data.sections.edges.map(section =>
+						<li className="nav-item" key={section.node.id}>
+							<Link to={"/section/" + section.node.url} className="nav-link">
+								{section.node.name}
+							</Link>
+						</li>
+					)}
 				</ul>
 			</div>
 		</div>

@@ -15,21 +15,21 @@ export const App: React.FC = () => {
 	return (
 		<Router>
 			<ScrollToTop>
-				<Menu/>
-				<div className="content-wrapper main-wrap">
-					<div id="main" className="container">
-						<React.Suspense fallback={<Loader />}>
-							<ApolloProvider client={client}>
+				<ApolloProvider client={client}>
+					<Menu/>
+					<div className="content-wrapper main-wrap">
+						<div id="main" className="container">
+							<React.Suspense fallback={<Loader />}>
 								<Switch>
 									{routes.map((route: RouteItem) => (
 										<Route key={route.path} {...route} />
 									))}
 								</Switch>
-							</ApolloProvider>
-						</React.Suspense>
+							</React.Suspense>
+						</div>
 					</div>
-				</div>
-				<Footer/>
+					<Footer/>
+				</ApolloProvider>
 			</ScrollToTop>
 		</Router>
 	);
