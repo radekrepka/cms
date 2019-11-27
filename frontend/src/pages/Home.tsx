@@ -4,7 +4,6 @@ import {useQuery} from '@apollo/react-hooks';
 import {GET_ARTICLES} from '../graphql/queries/articles';
 import {getArticles} from '../graphql/queries/__generated__/getArticles';
 import Loader from '../components/Loader';
-import NotFound from './NotFound';
 import './Home.css';
 import {getReadableDateTime} from '../utils';
 
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
 	}
 
 	if (data == null || data.articles == null || data.articles.edges.length === 0) {
-		return <NotFound />;
+		return <div>No articles.</div>;
 	}
 
 	const { articles } = data;
