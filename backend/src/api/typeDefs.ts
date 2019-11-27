@@ -3,7 +3,8 @@ import {DocumentNode} from 'graphql';
 
 const typeDefs: DocumentNode = gql`
   type Query { 
-	
+	articles: ArticleConnection
+	article(id: Int): Article
   }
 
   interface Node {
@@ -24,6 +25,29 @@ const typeDefs: DocumentNode = gql`
 
   interface NodeConnection {
     edges: [NodeEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  input ArticleInput {
+    id: Int!
+  }
+
+  type Article implements Node {
+    id: Int!
+    title: String
+    image: String
+    body: String
+    frontPage: Boolean
+    created_date: String
+  }
+
+  type ArticleEdge implements NodeEdge {
+    node: Article!
+    cursor: String!
+  }
+
+  type ArticleConnection implements NodeConnection {
+    edges: [ArticleEdge!]!
     pageInfo: PageInfo!
   }
 `;
