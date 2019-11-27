@@ -33,12 +33,6 @@ const Article: React.FC<ArticleProps> = ({ match }) => {
 			return <NotFound />;
 		}
 
-		error.graphQLErrors.forEach((graphQLError) => {
-			if (graphQLError.extensions != null && graphQLError.extensions.code === 'NOT_FOUND') {
-				content = <NotFound />
-			}
-		});
-
 		return content;
 	}
 

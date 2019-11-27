@@ -16,15 +16,7 @@ const Home: React.FC = () => {
 	}
 
 	if (error) {
-		let content = <div>Error!</div>;
-
-		error.graphQLErrors.forEach((graphQLError) => {
-			if (graphQLError.extensions != null && graphQLError.extensions.code === 'NOT_FOUND') {
-				content = <NotFound />
-			}
-		});
-
-		return content;
+		return <div>Error!</div>;
 	}
 
 	if (data == null || data.articles == null || data.articles.edges.length === 0) {
