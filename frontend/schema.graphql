@@ -20,7 +20,7 @@ interface NodeEdge {
 
 type Article implements Node {
   body: String
-  created_date: String
+  created_date: DateTime
   frontPage: Boolean
   id: Int!
   image: String
@@ -52,3 +52,7 @@ type Query {
 input ArticleInput {
   id: Int!
 }
+
+
+"The `DateTime` scalar represents a date and time following the ISO 8601 standard"
+scalar DateTime
