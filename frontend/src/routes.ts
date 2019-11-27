@@ -6,7 +6,7 @@ export const SECTION = '/section/:sectionUrl';
 export const NOT_FOUND = '*';
 
 const Home = React.lazy(() => import('./pages/Home'));
-const Article = React.lazy(() => import('./pages/Home'));
+const Article = React.lazy(() => import('./pages/Article'));
 const Section = React.lazy(() => import('./pages/Section'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
