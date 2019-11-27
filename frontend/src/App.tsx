@@ -1,8 +1,10 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
 // @ts-ignore
 import ScrollToTop from 'react-router-scroll-top';
 import 'bootstrap/dist/css/bootstrap.css';
+import client from './graphql/client';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import './App.css'
@@ -17,11 +19,13 @@ export const App: React.FC = () => {
 				<div className="content-wrapper main-wrap">
 					<div id="main" className="container">
 						<React.Suspense fallback={<Loader />}>
-							<Switch>
-								{routes.map((route: RouteItem) => (
-									<Route key={route.path} {...route} />
-								))}
-							</Switch>
+							<ApolloProvider client={client}>
+								<Switch>
+									{routes.map((route: RouteItem) => (
+										<Route key={route.path} {...route} />
+									))}
+								</Switch>
+							</ApolloProvider>
 						</React.Suspense>
 					</div>
 				</div>
