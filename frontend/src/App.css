@@ -1,3 +1,7 @@
 .main-wrap {
     min-height: calc(100vh - 549px);
 }
+
+.article-create-date {
+    font-size: 13px;
+}

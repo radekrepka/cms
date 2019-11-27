@@ -1,12 +1,3 @@
-.frontPage a {
-    color: black;
-    text-decoration: underline;
-}
-
-.frontPage img {
-    width: 100%;
-}
-
 .article-list img {
     border-radius: 10px;
     width: 100%;
