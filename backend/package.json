@@ -24,6 +24,6 @@
     "graphql-tools": "^4.0.6",
     "graphql-type-datetime": "^0.2.4",
     "lodash": "^4.17.15",
-    "luxon": "^1.21.2"
+    "luxon": "^2.5.2"
   }
 }
